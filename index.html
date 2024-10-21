@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Operation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 20px;
+        }
+        table {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>User Information</h2>
+<form id="userForm">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="city">City:</label>
+        <input type="text" id="city" class="form-control" required>
+    </div>
+    <button type="button" id="submit" class="btn btn-primary">Add User</button>
+</form>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>City</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody id="details"></tbody>
+</table>
+
+<script>
+    let currentRow = null;
+
+    document.getElementById('submit').addEventListener('click', () => {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const city = document.getElementById('city').value;
+        const details = document.getElementById('details');
+
+        if (currentRow) {
+            currentRow.cells[0].innerText = name;
+            currentRow.cells[1].innerText = email;
+            currentRow.cells[2].innerText = city;
+            currentRow = null; // Clear currentRow after update
+        } else {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${name}</td>
+                            <td>${email}</td>
+                            <td>${city}</td>
+                            <td><button class="btn btn-primary" onclick="editRow(this)">Edit</button></td>
+                            <td><button class="btn btn-danger" onclick="deleteRow(this)">Delete</button></td>`;
+            details.appendChild(tr);
+        }
+
+        // Clear input fields
+        document.getElementById('userForm').reset();
+    });
+
+    function deleteRow(button) {
+        const row = button.parentElement.parentElement; // Get the row
+        row.remove(); // Remove the row
+    }
+
+    function editRow(button) {
+        currentRow = button.parentElement.parentElement; // Store the row being edited
+        document.getElementById('name').value = currentRow.cells[0].innerText;
+        document.getElementById('email').value = currentRow.cells[1].innerText;
+        document.getElementById('city').value = currentRow.cells[2].innerText;
+    }
+</script>
+
+</body>
+</html>
