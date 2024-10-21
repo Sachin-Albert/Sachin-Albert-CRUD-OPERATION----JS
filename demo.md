@@ -1,4 +1,4 @@
-## CRUD OPERATION
+# CRUD OPERATION
 
-# DEMO LINK 
-    ---[CRUD OPERATION] : (https://curd-js.netlify.app/)
+## DEMO LINK 
+You can check out the live demo here: [Form Validation](https://form-validation-localstorages.netlify.app/)
